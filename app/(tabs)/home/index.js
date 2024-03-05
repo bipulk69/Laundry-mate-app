@@ -46,7 +46,7 @@ const index = () => {
         >
           <View>
             <Text style={{ fontSize: 13, fontFamily: "Kailasa-Bold" }}>
-              Hi Sujan!
+              Hi Bipul!
             </Text>
             <Text
               style={{
@@ -55,7 +55,7 @@ const index = () => {
                 color: "white",
               }}
             >
-              Home | Bengaluru - 560022
+              Home | Delhi - 110096
             </Text>
           </View>
 
