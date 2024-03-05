@@ -368,6 +368,75 @@ const address = () => {
               </View>
             </View>
           )}
+
+          {step == 3 && (
+            <>
+              <View
+                style={{
+                  backgroundColor: "white",
+                  marginTop: 10,
+                  padding: 10,
+                  borderRadius: 10,
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 10,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 10,
+                    }}
+                  >
+                    <EvilIcons name="location" size={24} color="black" />
+                    <Text>Pick up slot</Text>
+                  </View>
+
+                  <AntDesign name="edit" size={24} color="black" />
+                </View>
+
+                <View>
+                  <View
+                    style={{
+                      padding: 10,
+                      margin: 10,
+                      borderRadius: 6,
+                      width: 50,
+                      backgroundColor: "#0066b2",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        fontSize: 13,
+                        color: "white",
+                      }}
+                    >
+                      {selectedDate.format("D")}
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        color: "white",
+                        marginTop: 3,
+                        fontSize: 13,
+                      }}
+                    >
+                      {selectedDate.format("ddd")}
+                    </Text>
+                  </View>
+                </View>
+
+                <View></View>
+              </View>
+            </>
+          )}
         </ScrollView>
       </View>
 
