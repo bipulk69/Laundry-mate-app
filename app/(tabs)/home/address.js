@@ -59,6 +59,21 @@ const address = () => {
     return nextDays;
   };
 
+  const getNextDays = () => {
+    const nextDays = [];
+    let startDate = moment().add(1, "days");
+    if (moment(selectedDate).isSameOrBefore(moment().add(2, "days"), "day")) {
+      startDate = moment(selectedDate).add(2, "days");
+    }
+
+    for (let i = 0; i < 4; i++) {
+      const nextDate = moment(startDate).add(i, "days");
+      nextDays.push(nextDate);
+    }
+
+    return nextDays;
+  };
+
   const renderDateButtons = () => {
     const nextSixDays = getNextSixDays();
 
@@ -151,6 +166,50 @@ const address = () => {
         );
       });
     }
+  };
+
+  const renderButtons = () => {
+    const nextSixDays = getNextDays();
+    return nextSixDays.map((date, index) => (
+      <TouchableOpacity
+        style={{
+          padding: 10,
+          margin: 10,
+          borderRadius: 6,
+          width: 50,
+          backgroundColor: date.isSame(deliverDate, "day")
+            ? "#0066b2"
+            : "white",
+          borderColor: date.isSame(deliverDate, "day")
+            ? "transparent"
+            : "#0066b2",
+          borderWidth: date.isSame(deliverDate, "day") ? 0 : 1,
+        }}
+        onPress={() => setDeliverDate(date)}
+        key={index}
+      >
+        <Text
+          style={{
+            textAlign: "center",
+            marginTop: 3,
+            fontSize: 13,
+            color: date.isSame(deliverDate, "day") ? "white" : "black",
+          }}
+        >
+          {date?.format("D")}
+        </Text>
+        <Text
+          style={{
+            textAlign: "center",
+            marginTop: 3,
+            fontSize: 13,
+            color: date.isSame(deliverDate, "day") ? "white" : "black",
+          }}
+        >
+          {date?.format("ddd")}
+        </Text>
+      </TouchableOpacity>
+    ));
   };
 
   return (
@@ -401,39 +460,69 @@ const address = () => {
                   <AntDesign name="edit" size={24} color="black" />
                 </View>
 
-                <View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <View>
+                    <View
+                      style={{
+                        padding: 10,
+                        margin: 10,
+                        borderRadius: 6,
+                        width: 50,
+                        backgroundColor: "#0066b2",
+                      }}
+                    >
+                      <Text
+                        style={{
+                          textAlign: "center",
+                          fontSize: 13,
+                          color: "white",
+                        }}
+                      >
+                        {selectedDate.format("D")}
+                      </Text>
+                      <Text
+                        style={{
+                          textAlign: "center",
+                          color: "white",
+                          marginTop: 3,
+                          fontSize: 13,
+                        }}
+                      >
+                        {selectedDate.format("ddd")}
+                      </Text>
+                    </View>
+                  </View>
+
                   <View
                     style={{
                       padding: 10,
-                      margin: 10,
-                      borderRadius: 6,
-                      width: 50,
+                      borderRadius: 5,
                       backgroundColor: "#0066b2",
                     }}
                   >
-                    <Text
-                      style={{
-                        textAlign: "center",
-                        fontSize: 13,
-                        color: "white",
-                      }}
-                    >
-                      {selectedDate.format("D")}
-                    </Text>
-                    <Text
-                      style={{
-                        textAlign: "center",
-                        color: "white",
-                        marginTop: 3,
-                        fontSize: 13,
-                      }}
-                    >
-                      {selectedDate.format("ddd")}
+                    <Text style={{ textAlign: "center", color: "white" }}>
+                      {`${selectedTime?.startTime} - ${selectedTime?.endTime}`}
                     </Text>
                   </View>
                 </View>
 
-                <View></View>
+                <View
+                  style={{
+                    backgroundColor: "white",
+                    marginTop: 10,
+                    padding: 10,
+                  }}
+                >
+                  <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                    {renderButtons()}
+                  </View>
+                </View>
               </View>
             </>
           )}
