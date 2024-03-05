@@ -66,7 +66,7 @@ const address = () => {
       startDate = moment(selectedDate).add(2, "days");
     }
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
       const nextDate = moment(startDate).add(i, "days");
       nextDays.push(nextDate);
     }
@@ -210,6 +210,16 @@ const address = () => {
         </Text>
       </TouchableOpacity>
     ));
+  };
+
+  const renderTimeOptions = () => {
+    return pickupTimeOptions.map((option, index) => {
+      console.log(option);
+      const startTime = moment(
+        selectedDate.format("YYYY-MM-DD") + " " + option.startTime,
+        "YYYY-MM-DD LT"
+      );
+    });
   };
 
   return (
@@ -511,17 +521,22 @@ const address = () => {
                     </Text>
                   </View>
                 </View>
-
-                <View
-                  style={{
-                    backgroundColor: "white",
-                    marginTop: 10,
-                    padding: 10,
-                  }}
-                >
-                  <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                    {renderButtons()}
-                  </View>
+              </View>
+              <View
+                style={{
+                  backgroundColor: "white",
+                  marginTop: 10,
+                  padding: 10,
+                }}
+              >
+                <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                  {renderButtons()}
+                </View>
+                <Text style={{ marginHorizontal: 10 }}>
+                  Pickup Time Options
+                </Text>
+                <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                  {renderTimeOptions()}
                 </View>
               </View>
             </>
