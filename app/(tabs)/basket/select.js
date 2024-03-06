@@ -17,6 +17,7 @@ import {
   decrementQuantity,
   incrementQuantity,
 } from "../../../redux/CartReducer";
+import { useRouter } from "expo-router";
 
 const select = () => {
   const menData = [
@@ -147,6 +148,7 @@ const select = () => {
   const total = cart
     ?.map((item) => item.item.price * item.item.quantity)
     .reduce((prev, curr) => prev + curr, 0);
+  const router = useRouter();
   return (
     <>
       <ScrollView>
@@ -752,6 +754,7 @@ const select = () => {
             </View>
 
             <Pressable
+              onPress={() => router.push("/basket/cart")}
               style={{ padding: 10, backgroundColor: "white", borderRadius: 4 }}
             >
               <Text>View</Text>
