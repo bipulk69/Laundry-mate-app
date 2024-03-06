@@ -9,7 +9,8 @@ import {
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { Octicons } from "@expo/vector-icons";
+import { Octicons, AntDesign } from "@expo/vector-icons";
+import DressItem from "../../../components/DressItem";
 
 const select = () => {
   const menData = [
@@ -188,7 +189,7 @@ const select = () => {
             borderRadius: 5,
             borderWidth: 1,
             borderColor:
-              selectedOption == "wash + fold" ? "#0066b2" : "transparent",
+              selectedOption == "Wash + fold" ? "#0066b2" : "transparent",
           }}
         >
           <Image
@@ -212,6 +213,8 @@ const select = () => {
             alignItems: "center",
             borderRadius: 5,
             borderWidth: 1,
+            borderColor:
+              selectedOption == "Wash + Iron" ? "#0066b2" : "transparent",
           }}
         >
           <Image
@@ -235,6 +238,8 @@ const select = () => {
             alignItems: "center",
             borderRadius: 5,
             borderWidth: 1,
+            borderColor:
+              selectedOption == "Steam Iron" ? "#0066b2" : "transparent",
           }}
         >
           <Image
@@ -258,6 +263,8 @@ const select = () => {
             alignItems: "center",
             borderRadius: 5,
             borderWidth: 1,
+            borderColor:
+              selectedOption == "Dry Clean" ? "#0066b2" : "transparent",
           }}
         >
           <Image
@@ -270,6 +277,254 @@ const select = () => {
             Dry Clean
           </Text>
         </Pressable>
+      </View>
+
+      <View>
+        <View
+          style={{
+            marginVertical: 20,
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 10,
+            justifyContent: "space-around",
+          }}
+        >
+          <Pressable
+            onPress={() => setOptions("Men")}
+            style={{
+              padding: 10,
+              backgroundColor: "white",
+              backgroundColor: options == "Men" ? "#0066b2" : "white",
+              width: 60,
+              borderRadius: 4,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "500",
+                textAlign: "center",
+                color: options == "Men" ? "white" : "gray",
+              }}
+            >
+              Men
+            </Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => setOptions("Women")}
+            style={{
+              padding: 10,
+              backgroundColor: "white",
+              backgroundColor: options == "Women" ? "#0066b2" : "white",
+              width: 70,
+              borderRadius: 4,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "500",
+                textAlign: "center",
+                color: options == "Women" ? "white" : "gray",
+              }}
+            >
+              Women
+            </Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => setOptions("Kids")}
+            style={{
+              padding: 10,
+              backgroundColor: "white",
+              backgroundColor: options == "Kids" ? "#0066b2" : "white",
+              width: 60,
+              borderRadius: 4,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "500",
+                textAlign: "center",
+                color: options == "Kids" ? "white" : "gray",
+              }}
+            >
+              Kids
+            </Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => setOptions("Household")}
+            style={{
+              padding: 10,
+              backgroundColor: "white",
+              backgroundColor: options == "Household" ? "#0066b2" : "white",
+              borderRadius: 4,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "500",
+                textAlign: "center",
+                color: options == "Household" ? "white" : "gray",
+              }}
+            >
+              Household
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+
+      <View style={{ marginHorizontal: 10 }}>
+        {options == "Men" && (
+          <View>
+            {menData?.map((item, index) => (
+              <DressItem
+                item={item}
+                selectedOption={selectedOption}
+                key={index}
+              />
+            ))}
+          </View>
+        )}
+      </View>
+
+      <View style={{ marginHorizontal: 10 }}>
+        {options == "Women" && (
+          <View>
+            {womenData?.map((item, index) => (
+              <Pressable
+                key={index}
+                style={{
+                  padding: 10,
+                  backgroundColor: "white",
+                  marginVertical: 13,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 12,
+                }}
+              >
+                <View>
+                  <Image
+                    style={{ width: 40, height: 40 }}
+                    source={{ uri: item?.image }}
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                    {item?.name}
+                  </Text>
+                  <Text style={{ marginTop: 3 }}>
+                    Rs{" "}
+                    {selectedOption == "Wash + Iron"
+                      ? item.price + 20
+                      : selectedOption == "Steam Iron"
+                      ? item.price + 35
+                      : selectedOption == "Dry Clean"
+                      ? item.price + 45
+                      : item.price}
+                  </Text>
+                </View>
+                <Pressable>
+                  <AntDesign name="pluscircleo" size={24} color="#89cff0" />
+                </Pressable>
+              </Pressable>
+            ))}
+          </View>
+        )}
+      </View>
+
+      <View style={{ marginHorizontal: 10 }}>
+        {options == "Kids" && (
+          <View>
+            {kidsData?.map((item, index) => (
+              <Pressable
+                key={index}
+                style={{
+                  padding: 10,
+                  backgroundColor: "white",
+                  marginVertical: 13,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 12,
+                }}
+              >
+                <View>
+                  <Image
+                    style={{ width: 40, height: 40 }}
+                    source={{ uri: item?.image }}
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                    {item?.name}
+                  </Text>
+                  <Text style={{ marginTop: 3 }}>
+                    Rs{" "}
+                    {selectedOption == "Wash + Iron"
+                      ? item.price + 20
+                      : selectedOption == "Steam Iron"
+                      ? item.price + 35
+                      : selectedOption == "Dry Clean"
+                      ? item.price + 45
+                      : item.price}
+                  </Text>
+                </View>
+                <Pressable>
+                  <AntDesign name="pluscircleo" size={24} color="#89cff0" />
+                </Pressable>
+              </Pressable>
+            ))}
+          </View>
+        )}
+      </View>
+
+      <View style={{ marginHorizontal: 10 }}>
+        {options == "Household" && (
+          <View>
+            {houseData?.map((item, index) => (
+              <Pressable
+                key={index}
+                style={{
+                  padding: 10,
+                  backgroundColor: "white",
+                  marginVertical: 13,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 12,
+                }}
+              >
+                <View>
+                  <Image
+                    style={{ width: 40, height: 40 }}
+                    source={{ uri: item?.image }}
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                    {item?.name}
+                  </Text>
+                  <Text style={{ marginTop: 3 }}>
+                    Rs{" "}
+                    {selectedOption == "Wash + Iron"
+                      ? item.price + 20
+                      : selectedOption == "Steam Iron"
+                      ? item.price + 35
+                      : selectedOption == "Dry Clean"
+                      ? item.price + 45
+                      : item.price}
+                  </Text>
+                </View>
+                <Pressable>
+                  <AntDesign name="pluscircleo" size={24} color="#89cff0" />
+                </Pressable>
+              </Pressable>
+            ))}
+          </View>
+        )}
       </View>
     </ScrollView>
   );
