@@ -11,6 +11,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Octicons, AntDesign } from "@expo/vector-icons";
 import DressItem from "../../../components/DressItem";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  decrementQuantity,
+  incrementQuantity,
+} from "../../../redux/CartReducer";
 
 const select = () => {
   const menData = [
@@ -136,6 +142,8 @@ const select = () => {
 
   const [options, setOptions] = useState("Men");
   const [selectedOption, setSelectedOption] = useState("Wash + fold");
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.cart);
   return (
     <ScrollView>
       <View style={{ backgroundColor: "#FEBE10", padding: 12 }}>
@@ -428,9 +436,67 @@ const select = () => {
                       : item.price}
                   </Text>
                 </View>
-                <Pressable>
-                  <AntDesign name="pluscircleo" size={24} color="#89cff0" />
-                </Pressable>
+                {cart.some((c) => c.item.id == item.id) ? (
+                  <Pressable
+                    style={{
+                      flexDirection: "row",
+                      paddingHorizontal: 10,
+                      alignItems: "center",
+                      borderRadius: 5,
+                    }}
+                  >
+                    <Pressable
+                      onPress={() => {
+                        dispatch(decrementQuantity(item));
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 25,
+                          paddingHorizontal: 6,
+                        }}
+                      >
+                        -
+                      </Text>
+                    </Pressable>
+
+                    <Pressable>
+                      <Text
+                        style={{
+                          color: "black",
+                          paddingHorizontal: 6,
+                          fontSize: 15,
+                        }}
+                      >
+                        {cart.find((c) => c.item.id === item.id)?.item.quantity}
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={() => {
+                        dispatch(incrementQuantity(item));
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 17,
+                          color: "black",
+                          paddingHorizontal: 6,
+                        }}
+                      >
+                        +
+                      </Text>
+                    </Pressable>
+                  </Pressable>
+                ) : (
+                  <Pressable
+                    onPress={() => {
+                      dispatch(addToCart({ item, category: selectedOption }));
+                    }}
+                  >
+                    <AntDesign name="pluscircleo" size={24} color="#89CFF0" />
+                  </Pressable>
+                )}
               </Pressable>
             ))}
           </View>
@@ -473,9 +539,67 @@ const select = () => {
                       : item.price}
                   </Text>
                 </View>
-                <Pressable>
-                  <AntDesign name="pluscircleo" size={24} color="#89cff0" />
-                </Pressable>
+                {cart.some((c) => c.item.id == item.id) ? (
+                  <Pressable
+                    style={{
+                      flexDirection: "row",
+                      paddingHorizontal: 10,
+                      alignItems: "center",
+                      borderRadius: 5,
+                    }}
+                  >
+                    <Pressable
+                      onPress={() => {
+                        dispatch(decrementQuantity(item));
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 25,
+                          paddingHorizontal: 6,
+                        }}
+                      >
+                        -
+                      </Text>
+                    </Pressable>
+
+                    <Pressable>
+                      <Text
+                        style={{
+                          color: "black",
+                          paddingHorizontal: 6,
+                          fontSize: 15,
+                        }}
+                      >
+                        {cart.find((c) => c.item.id === item.id)?.item.quantity}
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={() => {
+                        dispatch(incrementQuantity(item));
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 17,
+                          color: "black",
+                          paddingHorizontal: 6,
+                        }}
+                      >
+                        +
+                      </Text>
+                    </Pressable>
+                  </Pressable>
+                ) : (
+                  <Pressable
+                    onPress={() => {
+                      dispatch(addToCart({ item, category: selectedOption }));
+                    }}
+                  >
+                    <AntDesign name="pluscircleo" size={24} color="#89CFF0" />
+                  </Pressable>
+                )}
               </Pressable>
             ))}
           </View>
@@ -518,9 +642,67 @@ const select = () => {
                       : item.price}
                   </Text>
                 </View>
-                <Pressable>
-                  <AntDesign name="pluscircleo" size={24} color="#89cff0" />
-                </Pressable>
+                {cart.some((c) => c.item.id == item.id) ? (
+                  <Pressable
+                    style={{
+                      flexDirection: "row",
+                      paddingHorizontal: 10,
+                      alignItems: "center",
+                      borderRadius: 5,
+                    }}
+                  >
+                    <Pressable
+                      onPress={() => {
+                        dispatch(decrementQuantity(item));
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 25,
+                          paddingHorizontal: 6,
+                        }}
+                      >
+                        -
+                      </Text>
+                    </Pressable>
+
+                    <Pressable>
+                      <Text
+                        style={{
+                          color: "black",
+                          paddingHorizontal: 6,
+                          fontSize: 15,
+                        }}
+                      >
+                        {cart.find((c) => c.item.id === item.id)?.item.quantity}
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                      onPress={() => {
+                        dispatch(incrementQuantity(item));
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 17,
+                          color: "black",
+                          paddingHorizontal: 6,
+                        }}
+                      >
+                        +
+                      </Text>
+                    </Pressable>
+                  </Pressable>
+                ) : (
+                  <Pressable
+                    onPress={() => {
+                      dispatch(addToCart({ item, category: selectedOption }));
+                    }}
+                  >
+                    <AntDesign name="pluscircleo" size={24} color="#89CFF0" />
+                  </Pressable>
+                )}
               </Pressable>
             ))}
           </View>
