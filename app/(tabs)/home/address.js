@@ -219,6 +219,39 @@ const address = () => {
         selectedDate.format("YYYY-MM-DD") + " " + option.startTime,
         "YYYY-MM-DD LT"
       );
+
+      // Check if the time slot is past the current time
+      return (
+        <TouchableOpacity
+          key={index}
+          onPress={() => {
+            setSelectedDeliveryTime(option);
+          }}
+          style={{
+            margin: 10,
+            padding: 10,
+            borderRadius: 5,
+            backgroundColor:
+              selectedDeliveryTime &&
+              selectedDeliveryTime.startTime === option.startTime &&
+              selectedDeliveryTime.endTime === option.endTime
+                ? "#0066b2"
+                : "white",
+          }}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+              color:
+                selectedDeliveryTime &&
+                selectedDeliveryTime.startTime === option.startTime &&
+                selectedDeliveryTime.endTime === option.endTime
+                  ? "white"
+                  : "black",
+            }}
+          >{`${option.startTime} - ${option.endTime}`}</Text>
+        </TouchableOpacity>
+      );
     });
   };
 
@@ -328,6 +361,7 @@ const address = () => {
 
       <View style={{ backgroundColor: "#f0f8f8", flex: 1, padding: 10 }}>
         <ScrollView>
+          {/* Step 1 */}
           {step == 1 && (
             <View>
               {/* Map over all the address */}
@@ -404,6 +438,7 @@ const address = () => {
             </View>
           )}
 
+          {/* Step 2 */}
           {step == 2 && (
             <View
               style={{
@@ -438,6 +473,7 @@ const address = () => {
             </View>
           )}
 
+          {/* Step 3 */}
           {step == 3 && (
             <>
               <View
