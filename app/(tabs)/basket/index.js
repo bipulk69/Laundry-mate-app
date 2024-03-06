@@ -1,9 +1,12 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useRouter } from "expo-router";
+import { useSelector } from "react-redux";
 
 const index = () => {
   const router = useRouter();
+  const cart = useSelector((state) => state.cart.cart);
+  console.log(cart);
   return (
     <View>
       <View

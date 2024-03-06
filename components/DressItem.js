@@ -1,8 +1,11 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/CartReducer";
 
 const DressItem = ({ item, selectedOption }) => {
+  const dispatch = useDispatch();
   return (
     <View>
       <Pressable
@@ -34,7 +37,11 @@ const DressItem = ({ item, selectedOption }) => {
               : item.price}
           </Text>
         </View>
-        <Pressable>
+        <Pressable
+          onPress={() => {
+            dispatch(addToCart({ item, category: selectedOption }));
+          }}
+        >
           <AntDesign name="pluscircleo" size={24} color="#89cff0" />
         </Pressable>
       </Pressable>
