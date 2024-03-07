@@ -12,11 +12,24 @@ import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { AntDesign } from "@expo/vector-icons";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const handleLogin = () => {
+    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      const user = userCredential.user;
+      const token = user?.stsTokenManager.accessToken;
+
+      AsyncStorage.setItem("auth", token);
+    });
+
+    router.replace("/(tabs)/home");
+  };
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}
@@ -144,6 +157,7 @@ const login = () => {
 
         <View style={{ marginTop: 60 }} />
         <Pressable
+          onPress={handleLogin}
           style={{
             width: 200,
             backgroundColor: "#FEBE10",

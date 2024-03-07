@@ -11,11 +11,48 @@ import {
 import React, { useState } from "react";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
+import { auth } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 const register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const handleRegister = async () => {
+    try {
+      if (!email || !password) {
+        throw new Error("Email and passwor are required");
+      }
+
+      const userCredential = createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      ).then((userCredentail) => {
+        const user = userCredentail._tokenResponse.email;
+
+        const myUserUid = auth.currentUser.uid;
+
+        sendEmailVerification(auth.currentUser).then(() => {
+          console.log("Email verification sent");
+        });
+
+        setDoc(doc(db, "user"), `${myUserUid}`, {
+          email: email,
+          password: password,
+        });
+      });
+
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}
@@ -143,6 +180,7 @@ const register = () => {
 
         <View style={{ marginTop: 60 }} />
         <Pressable
+          onPress={handleRegister}
           style={{
             width: 200,
             backgroundColor: "#FEBE10",
